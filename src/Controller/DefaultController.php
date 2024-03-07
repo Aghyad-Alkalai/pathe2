@@ -33,12 +33,13 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/default', name: 'app_default')]
+    #[Route('/category/new', name: 'app_new_category')]
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $form = $this->createForm(CategoryType::class);
+        $department=new Department();
+        $form = $this->createForm(DepartmentType::class);
         $form->handleRequest($request);
-        ]);
+        return new Response('toon department');
     }
 
 }
