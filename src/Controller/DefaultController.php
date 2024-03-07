@@ -40,6 +40,17 @@ class DefaultController extends AbstractController
     {
         $department=new Department();
         $form = $this->createForm(DepartmentType::class, $department);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $department = $form->getData();
+//            dd($department);
+            $entityManager->persist($department);
+            $entityManager->flush();
+            $this->addFlash(
+                'success', 'De category is toegevoegd'
+            );
+        }
 
         return $this->render('default/new.html.twig', ['form' => $form,
             ]);
