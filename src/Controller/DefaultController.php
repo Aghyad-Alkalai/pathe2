@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Department;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -29,6 +30,14 @@ class DefaultController extends AbstractController
         return $this->render('default/employees.html.twig', [
             'department' => $department,
 
+        ]);
+    }
+
+    #[Route('/default', name: 'app_default')]
+    public function new(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $form = $this->createForm(CategoryType::class);
+        $form->handleRequest($request);
         ]);
     }
 
