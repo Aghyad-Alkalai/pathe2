@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Department;
+use App\Form\DepartmentType;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Request;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -33,13 +35,14 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/category/new', name: 'app_new_category')]
+    #[Route('/new', name: 'app_new_category')]
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
         $department=new Department();
-        $form = $this->createForm(DepartmentType::class);
-        $form->handleRequest($request);
-        return new Response('toon department');
+        $form = $this->createForm(DepartmentType::class, $department);
+
+        return $this->render('default/new.html.twig', ['form' => $form,
+            ]);
     }
 
 }
